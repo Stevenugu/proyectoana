@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carreras Anáhuac</title>
+    <link rel="stylesheet" href="stole.css">
+    <link rel="icon" type="image/png" href="cuva.png">
+</head>
+<body>
+    <!-- HEADER FIEL A TU DISEÑO ORIGINAL (FONDO MORADO SÓLIDO, LETRAS BLANCAS) -->
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="cuva.png" alt="Logotipo" class="header-logo" onerror="this.src='https://via.placeholder.com/45?text=Logo'">
+            <h1 class="header-title">Universidad Anáhuac</h1>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL QUE ENCAPSULA TODO EL BLOQUE CENTRAL -->
+        </div>
+<!-- CONTENEDOR PRINCIPAL QUE ENCAPSULA TODO EL BLOQUE CENTRAL -->
+    <main class="main-content-wrapper">
+        <div class="central-card-box">
+            
+            <!-- SECCIÓN SUPERIOR -->
+            <section class="top-section">
+                <div class="npc-top-box">
+                    <div class="npc-avatar-pink" id="npcTop" title="¡Guía del campus!"></div>
+                </div>
+                <div class="blue-bubble">
+                    ¿Quieres ver alguna de nuestras carreras en Anáhuac? <br>
+                    <span class="click-hint" id="linkCarreras">¡Haz clic aquí para verlas!</span>
+                </div>
+                <div class="orange-info-box">
+                    En la Anáhuac, ofrecemos muchas carreras de tu interés para que puedas aprender y salir con un excelente aprendizaje.
+                </div>
+            </section>
+
+            <!-- SECCIÓN INTERMEDIA MORADA CON LA ESTRELLA -->
+            <section class="bottom-section">
+                <div class="bottom-text-content">
+                    <strong class="highlight-yellow">¿Te gustaría formar parte de alguna?</strong>
+                    <p>Dale clic a tu amigo que será tu guía en esta aventura de encontrar tu carrera ideal. Ya verás que no te arrepentirás.</p>
+                </div>
+                <div class="star-guideline">
+                    <span class="star-icon">★</span>
+                </div>
+            </section>
+
+            <!-- BANNER DE PROMOCIONES INFERIOR DEL BLOQUE -->
+            <div class="promociones-banner">
+                <p class="promo-text">
+                    ¿Deseas ver nuestras promociones? 
+                    <span class="promo-link" onclick="abrirModalPromos()">CHECK THIS LIL BRO</span>
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- VENTANA MODAL (OCULTA POR DEFECTO) CON LAS TARJETAS CORRECTAS -->
+    <div id="modalPromos" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="cerrarModalPromos()">&times;</span>
+            <h2>¡Promociones Exclusivas 2026!</h2>
+            <p class="modal-subtitle">Elige el plan ideal para asegurar tu futuro administrativo o creativo</p>
+            
+            <div class="promo-cards-container">
+                <!-- TARJETA 1: PREPARATORIA -->
+                <div class="promo-card">
+                    <div class="card-badge" style="background-color: #ff8552;">Beca del 30%</div>
+                    <div class="card-header">PREPARATORIA</div>
+                    <div class="card-price">GRATIS<span>INCRIPCIÓN</span></div>
+                    <ul class="card-features">
+                        <li style="font-weight: bold; color: #4a1291;">Y beca del 30% en el primer semestre.</li>
+                        <li>Incorporación a la SEGEM (Acuerdo 206-01B-5878)</li>
+                        <li><strong>Oferta educativa:</strong> Bachillerato general.</li>
+                        <li>Duración 3 años e Inglés en todos los semestres.</li>
+                        <li>Actividades sociales, culturales y deportivas.</li>
+                    </ul>
+                </div>
+
+                <!-- TARJETA 2: LICENCIATURAS -->
+                <div class="promo-card featured">
+                    <div class="card-badge">9 OPCIONES</div>
+                    <div class="card-header">LICENCIATURAS</div>
+                    <div class="card-price">GRATIS<span>INSCRIPCIÓN</span></div>
+                    <ul class="card-features">
+                        <li style="font-weight: bold; color: #4a1291;">Y beca del 30% en el primer cuatrimestre.</li>
+                        <li>Sistema escolarizado y sabatino.</li>
+                        <li>Contamos con 9 opciones profesionales.</li>
+                        <li>Haz clic en esta sección o en el logo de arriba para ver la lista completa.</li>
+                    </ul>
+                </div>
+
+                <!-- TARJETA 3: MAESTRÍAS Y DOCTORADO -->
+                <div class="promo-card">
+                    <div class="card-badge" style="background-color: #ff8552;">Beca del 30%</div>
+                    <div class="card-header">MAESTRÍAS Y DOC.</div>
+                    <div class="card-price">50%<span>EN INSCRIPCIÓN</span></div>
+                    <ul class="card-features">
+                        <li style="font-weight: bold; color: #4a1291;">Y beca del 30% en el primer cuatrimestre.</li>
+                        <li><strong>Maestrías:</strong> Educación, Derecho Constitucional y Amparo, Alta Dirección.</li>
+                        <li><strong>Doctorado:</strong> Doctorado en Educación.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- VENTANA MODAL PARA EL VIDEO DEL NPC (RESTRICCION REAFIRMADA) -->
+    <div id="modalVideoNpc" class="modal-video-overlay">
+        <div class="modal-video-box">
+            <span class="close-video-modal" onclick="cerrarModalVideo()">&times;</span>
+            <div class="video-responsive-container">
+                <video id="videoGuia" src="vidio.mp4" controls></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- NPC ROJO FLOTANTE ORIGINAL CON SU GLOBO FIJO -->
+    <div class="npc-side-container">
+        <div class="npc-dialogue-balloon-fixed">
+            "Hey you! Do you want to see something cool for school? Come and check this out, pal!"
+        </div>
+        <div class="npc-avatar-red" id="robloxNpcSide" title="¡Dale clic para ver el video!" onclick="abrirModalVideo()"></div>
+    </div>
+
+    <!-- FOOTER INSTITUCIONAL COMPLETO CON DIRECCIÓN, MAPA INTEGRADO Y BOTÓN -->
+    <footer class="main-footer">
+        <div class="footer-columns-container">
+            
+            <div class="footer-column">
+                <h3><span>|</span> VALLE DE ANÁHUAC</h3>
+                <p>El mejor lugar para construir tu futuro profesional, impulsando tus habilidades al máximo nivel.</p>
+            </div>
+
+            <div class="footer-column text-accent-orange">
+                <h3><span>|</span> BÚSCANOS EN</h3>
+                <p class="label-title">DIRECCIÓN:</p>
+                <p class="desc-text">Av. Hidalgo 8, San Lorenzo Tetlixtac, 55714 San Francisco Coacalco, Méx.</p>
+                
+                <p class="label-title spacing-top">TELÉFONO:</p>
+                <p class="desc-text">+525558652279</p>
+            </div>
+
+            <div class="footer-column alignment-center">
+                <h3><span>|</span> UBICACIÓN SATELITAL</h3>
+                <div class="map-dashed-box">
+                    <!-- Mapa embebido directo por URL limpia de Google Maps -->
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Centro%20Universitario%20Valle%20de%20An%C3%A1huac&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                        class="footer-embedded-map" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    
+                    <button class="maps-orange-btn" onclick="window.open('https://www.google.com.mx/maps/place/Centro+Universitario+Valle+de+An%C3%A1huac/@19.6301736,-99.0836116,20.25z/data=!4m6!3m5!1s0x85d1f41d32fc9fdd:0xbe6e24371d162513!8m2!3d19.6307996!4d-99.0847304!16s%2Fg%2F1tmqgk4d?entry=ttu', '_blank')">
+                        Ampliar mapa ↗
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-copyright-flat">
+            <p>&copy; 2026 Centro Universitario Valle de Anáhuac. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const link = document.getElementById('linkCarreras');
+        const npcTop = document.getElementById('npcTop');
+        const videoElement = document.getElementById('videoGuia');
+
+        function irACarreras() {
+            window.location.href = 'carreras.html';
+        }
+        link.addEventListener('click', irACarreras);
+        if(npcTop) { npcTop.addEventListener('click', irACarreras); }
+
+        function abrirModalPromos() { document.getElementById('modalPromos').classList.add('show-modal'); }
+        function cerrarModalPromos() { document.getElementById('modalPromos').classList.remove('show-modal'); }
+
+        function abrirModalVideo() {
+            document.getElementById('modalVideoNpc').classList.add('show-video-modal');
+            if(videoElement) { videoElement.play().catch(() => {}); }
+        }
+        function cerrarModalVideo() {
+            document.getElementById('modalVideoNpc').classList.remove('show-video-modal');
+            if(videoElement) { videoElement.pause(); videoElement.currentTime = 0; }
+        }
+
+        window.onclick = function(event) {
+            const modalPromos = document.getElementById('modalPromos');
+            const modalVideo = document.getElementById('modalVideoNpc');
+            if (event.target == modalPromos) modalPromos.classList.remove('show-modal');
+            if (event.target == modalVideo) cerrarModalVideo();
+        }
+    </script>
+</body>
+</html>

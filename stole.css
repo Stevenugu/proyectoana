@@ -1,0 +1,566 @@
+/* ==========================================================================
+   CONFIGURACIÓN GENERAL Y FONDOS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f4f9;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   HEADER ORIGINAL (FONDO MORADO SÓLIDO, TEXTO BLANCO)
+   ========================================================================== */
+.main-header {
+    background-color: #4a1291; 
+    padding: 18px 40px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+}
+
+.header-title {
+    font-size: 22px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   BLOQUE CENTRAL AGRUPADO (LA CAJA CON BORDE NEGRO DE TU DISEÑO ORIGINAL)
+   ========================================================================== */
+.main-content-wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 0 20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.central-card-box {
+    width: 100%;
+    background-color: #ffffff;
+    border: 3px solid #1a1a1a; 
+    border-radius: 4px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15); 
+    overflow: hidden;
+}
+
+/* --- SECCIÓN SUPERIOR INTERNA --- */
+.top-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 35px 25px;
+    background-color: #ffffff;
+    border-bottom: 3px solid #1a1a1a; 
+}
+
+/* ==========================================================================
+   NPCs PERSONALIZADOS (GRANDES Y TOTALMENTE PLANOS)
+   ========================================================================== */
+
+/* NPC Superior Rosa Plano */
+.npc-top-box {
+    display: inline-block;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.npc-avatar-pink {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    background-color: #f75cb4; 
+    box-shadow: 0 0 15px rgba(247, 92, 180, 0.3);
+    transition: transform 0.25s ease;
+}
+
+.npc-top-box:hover .npc-avatar-pink {
+    transform: scale(1.05);
+}
+
+/* NPC Flotante Rojo Plano */
+.npc-side-container {
+    position: fixed;
+    bottom: 30px;      
+    right: 30px;       
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 90;       
+}
+
+.npc-avatar-red {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: #ff1a1a; 
+    box-shadow: 0 0 20px rgba(255, 26, 26, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.npc-side-container:hover .npc-avatar-red {
+    transform: scale(1.05);
+}
+
+/* Globo de texto fijo del NPC rojo */
+.npc-dialogue-balloon-fixed {
+    position: relative;
+    margin-bottom: 18px;
+    background-color: #0c0c0c;
+    color: #ffffff;
+    border: 3px solid #ff1a1a; 
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(255, 26, 26, 0.3);
+}
+
+.npc-dialogue-balloon-fixed::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: #ff1a1a transparent transparent transparent;
+}
+
+/* ==========================================================================
+   ELEMENTOS DE INTERFAZ DEL BLOQUE SUPERIOR
+   ========================================================================== */
+.blue-bubble {
+    background-color: #1e70efff;
+    color: #ffffff;
+    padding: 22px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    max-width: 380px;
+}
+
+.blue-bubble::after {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #1e70efff transparent transparent;
+}
+
+.click-hint {
+    display: inline-block;
+    margin-top: 8px;
+    color: #ffff00;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.orange-info-box {
+    background-color: #ff8552;
+    color: #ffffff;
+    padding: 20px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    max-width: 260px;
+}
+
+/* ==========================================================================
+   SECCIÓN INTERMEDIA MORADA CON LA ESTRELLA
+   ========================================================================== */
+.bottom-section {
+    background-color: #512da8; 
+    padding: 35px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 3px solid #1a1a1a;
+}
+
+.bottom-text-content {
+    color: #ffffff;
+    max-width: 70%;
+}
+
+.highlight-yellow {
+    display: block;
+    font-size: 20px;
+    color: #ffff00; 
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.bottom-text-content p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #ece0fd;
+}
+
+.star-guideline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 20px;
+}
+
+.star-icon {
+    font-size: 55px;
+    color: #ffff55; 
+    text-shadow: 0 2px 10px rgba(255, 255, 85, 0.4);
+    user-select: none;
+}
+
+/* ==========================================================================
+   BANNER DE PROMOCIONES INFERIOR RECTANGULAR
+   ========================================================================== */
+.promociones-banner {
+    background-color: #2e083a; 
+    padding: 22px;
+    text-align: center;
+}
+
+.promo-text {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.promo-link {
+    color: #ffff00; 
+    text-decoration: underline;
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   DISEÑO PROFESIONAL DEL MODAL DE PROMOCIONES (¡CORREGIDO!)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro translúcido */
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.show-modal { 
+    display: flex; 
+}
+
+.modal-box {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 40px 30px;
+    max-width: 950px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #999999;
+    transition: color 0.2s;
+    font-weight: bold;
+}
+
+.close-modal:hover {
+    color: #333333;
+}
+
+.modal-box h2 {
+    color: #4a1291;
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.modal-subtitle {
+    text-align: center;
+    color: #666666;
+    margin-bottom: 35px;
+    font-size: 15px;
+}
+
+/* Contenedor de Tarjetas */
+.promo-cards-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Estilo individual de las Tarjetas de Promociones */
+.promo-card {
+    background-color: #faf9fc;
+    border: 2px solid #eae6eb;
+    border-radius: 12px;
+    padding: 30px 20px;
+    flex: 1;
+    min-width: 260px;
+    max-width: 290px;
+    position: relative;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.promo-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Tarjeta Destacada (Beca Excelencia) */
+.promo-card.featured {
+    border-color: #4a1291;
+    background-color: #ffffff;
+    box-shadow: 0 8px 25px rgba(74, 18, 145, 0.12);
+}
+
+/* Insignia "Más Popular" flotante */
+.card-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a1291;
+    color: #ffffff;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a1291;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.card-price {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    color: #222222;
+    margin-bottom: 20px;
+}
+
+.card-price span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #777777;
+}
+
+/* Lista de beneficios dentro de las tarjetas */
+.card-features {
+    list-style: none;
+    margin-top: auto; /* Empuja el contenido hacia abajo de forma alineada */
+}
+
+.card-features li {
+    font-size: 13.5px;
+    color: #555555;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.4;
+}
+
+/* Checkmark naranja original para la lista */
+.card-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #ff8552;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   SISTEMA DE MODAL PARA EL VIDEO DEL NPC
+   ========================================================================== */
+.modal-video-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none; justify-content: center; align-items: center;
+    z-index: 1000;
+}
+
+.modal-video-overlay.show-video-modal { display: flex; }
+
+.modal-video-box {
+    background-color: #0d0d0d; border: 4px solid #ff1a1a;
+    padding: 12px; border-radius: 12px; position: relative;
+    width: 90%; max-width: 700px;
+}
+
+.close-video-modal {
+    position: absolute; top: -15px; right: -15px;
+    background-color: #ff1a1a; color: #ffffff;
+    width: 32px; height: 32px; border-radius: 50%;
+    font-size: 20px; line-height: 28px; text-align: center; cursor: pointer; font-weight: bold;
+}
+
+.video-responsive-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
+.video-responsive-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   FOOTER INSTITUCIONAL ORIGINAL COMPLETO (CON EL MAPA INTEGRADO)
+   ========================================================================== */
+.main-footer {
+    background-color: #1f0624; 
+    padding: 40px 40px 20px 40px;
+    margin-top: auto;
+}
+
+.footer-columns-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    color: #bbb2bc;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-column h3 {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+}
+
+.footer-column h3 span {
+    color: #ff8552; 
+    margin-right: 5px;
+    font-weight: 900;
+}
+
+.text-accent-orange .label-title {
+    color: #ff8552; 
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.text-accent-orange .desc-text {
+    color: #bbb2bc;
+    margin-bottom: 14px;
+}
+
+.text-accent-orange .spacing-top {
+    margin-top: 5px;
+}
+
+.alignment-center {
+    display: flex;
+    flex-direction: column;
+}
+
+.map-dashed-box {
+    border: 1px dashed #4a2152;
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #140317;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.footer-embedded-map {
+    width: 100%;
+    height: 150px; 
+    border: 0;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.maps-orange-btn {
+    background-color: #ff8552;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+    width: 100%; 
+}
+
+.maps-orange-btn:hover {
+    background-color: #e06c3a;
+}
+
+.footer-copyright-flat {
+    text-align: center;
+    margin-top: 35px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 11.5px;
+    color: #79667d;
+}

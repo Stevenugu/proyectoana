@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carreras - Centro Universitario Valle de Anáhuac</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="cuva.png">
+    <style>
+        body {
+            background-color: #f4f5f7;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Contenedor global de 3 columnas */
+        .page-layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Diseño Formal de Banners Laterales */
+        .aside-banner {
+            width: 180px;
+            min-width: 180px;
+            background: #4a259c; /* Morado institucional */
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .aside-banner h4 {
+            color: #ffcc00; /* Dorado brillante */
+            margin: 0;
+            text-align: center;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #ffcc00;
+            padding-bottom: 5px;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #000;
+            display: block;
+        }
+
+        /* Ajuste para el contenedor central */
+        .content-container {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* De iconos sueltos a Botones Formales */
+        .carreras-list {
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .carrera-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 6px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .carrera-item:hover {
+            background: #ff7f50; /* Naranja institucional interactivo */
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .carrera-item.active {
+            background: #4a259c !important;
+            color: #fff !important;
+            border-color: #000;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .carrera-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .carrera-text {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .carrera-item.active .carrera-text {
+            color: #fff;
+        }
+        /* --- ESTILOS DEL FOOTER Y CARRUSEL --- */
+        .main-footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 30px 20px 15px 20px;
+            margin-top: 40px;
+            border-top: 4px solid #4a259c;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-carousel-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .carousel-title {
+            color: #ffcc00; /* Dorado llamativo */
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        /* Ventana que recorta el contenido */
+        .carousel-window {
+            width: 100%;
+            max-width: 600px;
+            height: 280px;
+            overflow: hidden;
+            border: 3px solid #000;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            background: #000;
+        }
+
+        /* Riel movible mediante JS */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Cada diapositiva ocupa el 100% del ancho de la ventana */
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Texto descriptivo sobrepuesto abajo */
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+            border-top: 1px solid #ffcc00;
+        }
+
+        /* Flechas de navegación */
+        .carousel-arrow {
+            background: #4a259c;
+            color: #ffcc00;
+            border: 2px solid #000;
+            font-size: 20px;
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 0px #000;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .carousel-arrow:hover {
+            background: #ff7f50;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .carousel-arrow:active {
+            transform: translate(1px, 1px);
+            box-shadow: none;
+        }
+
+        .footer-copyright {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 15px;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+        }
+        /* --- NUEVOS ESTILOS DEL FOOTER DESLIZABLE --- */
+        .main-footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 10px 20px 15px 20px;
+            margin-top: 40px;
+            border-top: 4px solid #4a259c;
+            width: 100%;
+            box-sizing: border-box;
+            
+            /* Posicionamiento fijo abajo para el efecto persiana */
+            position: fixed;
+            bottom: -380px; /* Se esconde la caja del carrusel por defecto */
+            left: 0;
+            z-index: 999;
+            transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Desplazamiento suave */
+        }
+
+        /* Clase activa que se pondrá con JS para subir el footer */
+        .main-footer.open {
+            bottom: 0;
+        }
+
+        /* Pestaña superior con la flecha interactiva */
+        .footer-toggle-btn {
+            background: #4a259c;
+            color: #ffcc00;
+            border: 2px solid #000;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            padding: 8px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            width: 180px;
+            margin: -44px auto 20px auto; /* Lo eleva justo arriba del borde negro */
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .footer-toggle-btn:hover {
+            background: #ff7f50;
+            color: #fff;
+        }
+
+        /* Añade un margen extra al fondo del layout para que el footer no tape el contenido al abrirse */
+        body {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="cuva.png" alt="Logotipo" class="header-logo" onerror="this.src='https://via.placeholder.com/45?text=Logo'">
+            <h1 class="header-title">Universidad Anáhuac</h1>
+        </div>
+    </header>
+
+    <!-- Envoltura principal de tres columnas -->
+    <div class="page-layout">
+        
+        <!-- BANNER IZQUIERDO -->
+        <aside class="aside-banner">
+            <h4>Promociones</h4>
+            <img src="banner1.png" alt="Beca Incorporada" class="banner-img" onerror="this.src='https://via.placeholder.com/160x300/2d1454/ffffff?text=Beca+Anáhuac'">
+            <img src="banner2.png" alt="Inscripción Gratis" class="banner-img" onerror="this.src='https://via.placeholder.com/160x150/ff7f50/ffffff?text=Inscríbete+Hoy'">
+        </aside>
+
+        <!-- SECCIÓN CENTRAL -->
+        <main class="content-container">
+            
+            <div class="carreras-list">
+                <div class="carrera-item" id="btn-marketing" onclick="seleccionarCarrera('marketing')" title="Publicidad y marketing">
+                    <img src="img/icon-marketing.png" alt="Marketing" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=M'">
+                    <span class="carrera-text">Publicidad y Marketing</span>
+                </div>
+                <div class="carrera-item" id="btn-administracion" onclick="seleccionarCarrera('administracion')" title="Administración">
+                    <img src="img/icon-administracion.png" alt="Administración" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=A'">
+                    <span class="carrera-text">Administración</span>
+                </div>
+                <div class="carrera-item" id="btn-psicologia" onclick="seleccionarCarrera('psicologia')" title="Psicología clínica">
+                    <img src="img/icon-psicologia.png" alt="Psicología" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=P'">
+                    <span class="carrera-text">Psicología Clínica</span>
+                </div>
+                <div class="carrera-item" id="btn-derecho" onclick="seleccionarCarrera('derecho')" title="Derecho">
+                    <img src="img/icon-derecho.png" alt="Derecho" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=D'">
+                    <span class="carrera-text">Derecho</span>
+                </div>
+                <div class="carrera-item" id="btn-criminologia" onclick="seleccionarCarrera('criminologia')" title="Criminología y Criminalística">
+                    <img src="img/icon-criminologia.png" alt="Criminología" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=C'">
+                    <span class="carrera-text">Criminología</span>
+                </div>
+                <div class="carrera-item" id="btn-contaduria" onclick="seleccionarCarrera('contaduria')" title="Contaduría pública">
+                    <img src="img/icon-contaduria.png" alt="Contaduría" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=C'">
+                    <span class="carrera-text">Contaduría Pública</span>
+                </div>
+                <div class="carrera-item" id="btn-idiomas" onclick="seleccionarCarrera('idiomas')" title="Idiomas">
+                    <img src="img/icon-idiomas.png" alt="Idiomas" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=I'">
+                    <span class="carrera-text">Idiomas</span>
+                </div>
+                <div class="carrera-item" id="btn-informatica" onclick="seleccionarCarrera('informatica')" title="Informática Administrativa">
+                    <img src="img/icon-informatica.png" alt="Informática" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=IT'">
+                    <span class="carrera-text">Informática Adm.</span>
+                </div>
+                <div class="carrera-item" id="btn-pedagogia" onclick="seleccionarCarrera('pedagogia')" title="Pedagogía">
+                    <img src="img/icon-pedagogia.png" alt="Pedagogía" class="carrera-icon" onerror="this.src='https://via.placeholder.com/32?text=P'">
+                    <span class="carrera-text">Pedagogía</span>
+                </div>
+            </div>
+
+            <div class="book-container">
+                <div class="single-page-book" id="bookWindow">
+                    <div id="bookRenderArea">
+                        <h2>¡Bienvenido!</h2>
+                        <p class="welcome-text">Haz clic en cualquiera de las licenciaturas de la izquierda para abrir el libro e ir hojeando la información completa del plan de estudios.</p>
+                    </div>
+                    <div class="mini-npc" id="robloxNpc"></div>
+                </div>
+
+                <div class="navigation-bar">
+                    <button class="nav-btn" id="prevBtn" onclick="cambiarPagina(-1)" disabled>← Anterior</button>
+                    <div class="page-indicator" id="pageIndicator">Pág. 0 / 0</div>
+                    <button class="nav-btn" id="nextBtn" onclick="cambiarPagina(1)" disabled>Siguiente →</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- BANNER DERECHO -->
+        <aside class="aside-banner">
+            <h4>Eventos Campus</h4>
+            <img src="banner3.png" alt="Conferencias" class="banner-img" onerror="this.src='https://via.placeholder.com/160x220/2d1454/ffffff?text=Talleres+2026'">
+            <img src="banner4.png" alt="Instalaciones" class="banner-img" onerror="this.src='https://via.placeholder.com/160x220/ffcc00/000000?text=Visita+el+Campus'">
+        </aside>
+
+    </div>
+
+    <script>
+        const npc = document.getElementById('robloxNpc');
+        const bookWindow = document.getElementById('bookWindow');
+        
+        let carreraActual = null;
+        let paginaActual = 1;
+        let totalPaginas = 1;
+
+        npc.addEventListener('click', () => {
+            alert("¡Tu amigo guía te está llevando al formulario oficial!");
+            window.location.href = 'registro.html';
+        });
+
+        // BASE DE DATOS COMPLETA RESTAURADA AL 100%
+        const baseDatos = {
+            administracion: {
+                titulo: "Licenciatura en Administración",
+                duracion: "9 Cuatrimestres",
+                perfil: "El egresado de la Licenciatura en Administración contará con una formación integral en la gestión y dirección de organizaciones, capacitado para planear, diseñar, implementar y evaluar estrategias para optimizar los recursos y procesos en empresas públicas y privadas. Contará con habilidades para emprender negocios, tomar decisiones basadas en análisis financieros y comprender los retos del entorno empresarial con un enfoque ético y sustentable. Poseerá una visión analítica y estratégica que le permitirá identificar oportunidades de mejora, liderar equipos multidisciplinarios y aplicar modelos administrativos contemporáneos. Su preparación le dotará de un sólido sentido de responsabilidad social, liderazgo efectivo y capacidad de adaptación ante los cambios del mercado global.",
+                campo: "Dirección de empresas de diversos sectores, administración general, gestión financiera, contable y de costos, dirección de áreas de producción y logística, recursos humanos, mercadotecnia y ventas, calidad y producción, consultoría y emprendimiento, sector gubernamental y ONG's.",
+                bloquesPlan: [
+                    { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Contabilidad Básica, Metodología de la Investigación, Introducción a la Informática, Proceso Administrativo, Derecho Constitucional y Administrativo.", "<strong>2° Cuatrimestre:</strong> Contabilidad Intermedia, Macroeconomía, Matemáticas Financieras, Administración del Factor Humano, Derecho Civil.", "<strong>3° Cuatrimestre:</strong> Contabilidad Superior, Problemas Socioeconómicos de México, Estadística Descriptiva e Inferencial, Microeconomía, Derecho Mercantil."] },
+                    { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Contabilidad Administrativa, Introducción a las Finanzas, Planeación Estratégica, Recursos Humanos I, Derecho Laboral.", "<strong>5° Cuatrimestre:</strong> Contabilidad de Costos, Planeación y Control Financiero, Normas y procedimientos de Calidad, Mercadotecnia Aplicada a las Organizaciones.", "<strong>6° Cuatrimestre:</strong> Administración de la Producción, Administration Financiera, Estrategias de las Organizaciones, Teoría de las Organizaciones, Administration de Ventas."] },
+                    { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Planeación y Control de la Producción, Formulación de Proyectos de Inversión, Cultura de Calidad, Seminario de Desarrollo Organizacional, Publicidad.", "<strong>8° Cuatrimestre:</strong> Reingeniería de Procesos, Formulación de Proyectos de Inversión, Seminario de Calidad Total, Desarrollo de Emprendedores, Seminario de Derecho Corporativo I.", "<strong>9° Cuatrimestre:</strong> Seminario de Finanzas, Mercado de Dinero y Capitales, Seminario de Negocios, Seminario de Habilidades Directivas, Seminario de Derecho Corporativo II."] }
+                ]
+            },
+            marketing: {
+                titulo: "Publicidad y Marketing",
+                duracion: "9 Cuatrimestres",
+                perfil: "El egresado de la Licenciatura en Publicidad y Marketing contará con una formación integral en publicidad y marketing, capacitado para diseñar, implementar y evaluar estrategias comerciales, campaigns publicitarias creativas y planes de mercado en entornos nacionales e internacionales. Tendrá el dominio técnico y analítico para conectar productos, marcas y servicios con sus audiencias meta, integrando herramientas de diseño digital, psicología del consumidor y control financiero ético para generar valor dentro de cualquier organización. Poseerá habilidades para la toma de decisiones estratégicas basadas en la investigación de mercados, la gestión de medios y la comunicación integral, demostrando un liderazgo proactivo, responsabilidad social y una visión innovadora para adaptarse a las demandas del mercado global y digital.",
+                campo: "Dirección de empresas de publicidad y marketing, operación de agencias de publicidad, investigación de mercados, administración del diseño publicitario y gráfico, administración de ventas profesionales, mercadotecnia internacional y social, consultoría y emprendimiento.",
+                bloquesPlan: [
+                    { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Proceso Administrativo, Taller de Habilidades Informativas y de Comunicación, Taller de Expresión Oral y Escrita, Contabilidad Básica, Fundamentos de la Mercadotecnia.", "<strong>2° Cuatrimestre:</strong> Métodos y Técnicas de Investigación, Introducción a la Publicidad, Diseño Digital I, Operación de Agencias de Publicidad, Introducción a la Psicología.", "<strong>3° Cuatrimestre:</strong> Probabilidad y Estadística, Organización y Funcionamiento de la Publicidad, Diseño Digital II, Investigación de Mercados I, Diseño Gráfico."] },
+                    { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Persona, Sociedad y Cultura, Análisis de Consumidor, Diseño Digital III, Investigación de Mercados II, Derecho Constitucional Administrativo.", "<strong>5° Cuatrimestre:</strong> Administración del Diseño Publicitario, Dibujo, Administración de Ventas Profesionales, Fotografía Digital, Planeación y Control Financiero.", "<strong>6° Cuatrimestre:</strong> Desarrollo Organizacional, Contabilidad Intermedia, Desarrollo del Producto, Dibujo Publicitario, Dirección de Empresas de Publicidad y Marketing."] },
+                    { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Taller de Campañas Publicitarias, Análisis del Entorno, Planeación de Acciones en Publicidad y Propaganda, Administración del Factor Humano, Pintura.", "<strong>8° Cuatrimestre:</strong> Seminario de Habilidades Directivas, Seminario de Calidad y Productividad, Planeación Estratégica de Proyectos, Emprendedor de Proyectos, Mercadotecnia Internacional.", "<strong>9° Cuatrimestre:</strong> Publicidad Global, Mercadotecnia Social y de Servicios, Mercadeo y Comercialización del Producto, Ética y Liderazgo, Seminario de Comunicación Integral de Mercados."] }
+                ]
+            },
+            psicologia: {
+                titulo: "Psicología Clínica",
+                duracion: "10 Cuatrimestres",
+                perfil: "El egresado de la Licenciatura en Psicología Clínica poseerá una sólida formación teórica, metodológica y práctica que le permitirá evaluar, diagnosticar e intervenir de manera ética en los diversos trastornos y problemáticas de la salud mental. Estará plenamente capacitado para aplicar herramientas psicométricas, realizar entrevistas clínicas profundas y diseñar planes de tratamiento psicoterapéutico orientados al bienestar integral de individuos, familias y comunidades. Desarrollará una visión humanista, empática y un pensamiento crítico que le facilitará integrarse a equipos de salud multidisciplinarios, adaptándose de manera efectiva a las necesidades actuales del entorno clínico y social.",
+                campo: "Hospitales públicos y privados, clínicas de salud mental, centros de rehabilitación y reinserción social, consultorios psicoterapéuticos independientes, instituciones educativas (áreas de orientación y psicopedagogía), centros comunitarios y departamentos de desarrollo humano.",
+                bloquesPlan: [
+                    { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Bases Biológicas, Introducción a la Psicología, Taller de Expresión Oral.", "<strong>2° Cuatrimestre:</strong> Neurofisiología, Psicología Fisiológica, Métodos de Investigación.", "<strong>3° Cuatrimestre:</strong> Psicometría, Estadística Inferencial, Psicología del Desarrollo."] },
+                    { t: "Cuatrimestres Intermedios (4° a 7°)", mat: ["<strong>4° Cuatrimestre:</strong> Psicopatología I, Teorías de la Personalidad, Entrevista Clínica.", "<strong>5° Cuatrimestre:</strong> Psicopatología II, Evaluación Neuropsicológica, Psicología Social.", "<strong>6° Cuatrimestre:</strong> Diagnóstico Psicológico, Terapia Cognitivo Conductual, Psicología Educativa.", "<strong>7° Cuatrimestre:</strong> Psicoterapia Familiar, Psicofarmacología, Educación Especial."] },
+                    { t: "Cuatrimestres Finales (8° a 10°)", mat: ["<strong>8° Cuatrimestre:</strong> Técnicas de Intervención Clínica, Ética Profesional, Seminario de Titulación I.", "<strong>9° Cuatrimestre:</strong> Prácticas Clínicas Supervisadas I, Orientación Vocacional, Seminario de Titulación II.", "<strong>10° Cuatrimestre:</strong> Prácticas Clínicas Supervisadas II, Psicología Organizacional, Evaluación de Proyectos."] }
+                ]
+            },
+            derecho: {
+                titulo: "Derecho",
+                duracion: "11 Cuatrimestres",
+                perfil: "El egresado de la Licenciatura en Derecho contará con una sólida formación jurídica, analítica y humanista, diseñada para interpretar, aplicar y argumentar el marco normativo nacional e internacional en la resolución pacífica de controversias. Desarrollará habilidades para litigar con destreza en juicios orales, redactar instrumentos legales complejos y estructurar asesorías corporativas de alta dirección. Su preparación integral fomenta un riguroso sentido ético, la defense inquebrantable de los derechos humanos y la justicia social, adaptándose con éxito a los constantes cambios normativos, tecnológicos y comerciales del entorno global.",
+                campo: "Tribunales, juzgados y fiscalías del Poder Judicial, dependencias de la administración pública a nivel federal, estatal y municipal, notarías públicas, despachos de litigio y consultoría jurídica privada, áreas legales internas de empresas, organismos internacionales y organizaciones no gubernamentales (ONG's).",
+                bloquesPlan: [
+                    { t: "Primeros Cuatrimestres (1° a 4°)", mat: ["<strong>1° Cuatrimestre:</strong> Introducción al Estudio del Derecho, Derecho Romano, Sociología Jurídica.", "<strong>2° Cuatrimestre:</strong> Derecho Civil I, Derecho Penal I, Teoría General del Estado.", "<strong>3° Cuatrimestre:</strong> Derecho Civil II, Derecho Penal II, Derecho Constit.", "<strong>4° Cuatrimestre:</strong> Derecho Civil III, Garantías Individuales, Teoría General del Proceso."] },
+                    { t: "Cuatrimestres Intermedios (5° a 8°)", mat: ["<strong>5° Cuatrimestre:</strong> Derecho Civil IV, Derecho Procesal Penal, Derecho Laboral I.", "<strong>6° Cuatrimestre:</strong> Derecho Procesal Civil, Derecho Laboral II, Derecho Administrativo.", "<strong>7° Cuatrimestre:</strong> Derecho Fiscal I, Derecho Mercantil I, Derecho Internacional Público.", "<strong>8° Cuatrimestre:</strong> Derecho Fiscal II, Derecho Mercantil II, Derecho Internacional Privado."] },
+                    { t: "Cuatrimestres Finales (9° a 11°)", mat: ["<strong>9° Cuatrimestre:</strong> Filosofía del Derecho, Derecho Corporativo, Juicio de Amparo I.", "<strong>10° Cuatrimestre:</strong> Clínica de Derecho Procesal, Argumentación Jurídica, Juicio de Amparo II.", "<strong>11° Cuatrimestre:</strong> Seminario de Tesis, Ética Jurídica, Prácticas Profesionales."] }
+                ]
+            },
+            criminologia: { 
+            titulo: "Criminología y Criminalística", 
+            duracion: "9 Cuatrimestres", 
+            perfil: "El egresado de la Licenciatura en Criminología y Criminalística obtendrá una formación multidisciplinaria especializada en el estudio pericial forense, la investigación del delito y el análisis del comportamiento antisocial. Poseerá las competencias técnicas necesarias para preservar, levantar y examinar evidencias en el lugar de los hechos mediante el uso de metodologías científicas rigurosas. Asimismo, estará capacitado para diseñar e implementar políticas públicas eficaces enfocadas en la prevención de la delincuencia, el diagnóstico criminológico y el tratamiento de reinserción social, conduciéndose con un estricto apego a la ley y respeto a los derechos humanos.",
+            campo: "Fiscalías generales de justicia, agencias de investigación policial, laboratorios periciales de ciencias forenses, centros penitenciarios y de reinserción social, instituciones de prevención del delito, aseguradoras, empresas privadas encargadas de la seguridad corporativa, y servicios de consultoría técnico-legal.",
+            bloquesPlan: [
+                { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Introducción al Derecho, Criminalística Forense, Sociología Criminal.", "<strong>2° Cuatrimestre:</strong> Derecho Penal, Medicina Legal, Psicología Criminal.", "<strong>3° Cuatrimestre:</strong> Antropología Forense, Fotografía Forense, Metodología Científica."] },
+                { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Dactiloscopia, Toxicología Forense, Política Criminal.", "<strong>5° Cuatrimestre:</strong> Balística Forense, Victimología, Penología y Sistemas Penitenciarios.", "<strong>6° Cuatrimestre:</strong> Hematología Forense, Grafoscopía y Documentoscopía, Criminología Clínica."] },
+                { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Medicina Forense Avanzada, Peritaje Criminalístico, Ética Forense.", "<strong>8° Cuatrimestre:</strong> Seminario de Investigación I, Psicopatología Forense, Criminología Corporativa.", "<strong>9° Cuatrimestre:</strong> Seminario de Investigación II, Prácticas Profesionales, Juicios Orales."] }
+            ] 
+        },
+        contaduria: { 
+            titulo: "Contaduría Pública", 
+            duracion: "9 Cuatrimestres", 
+            perfil: "El egresado de la Licenciatura en Contaduría Pública será un experto financiero con competencias críticas en la planeación, control e interpretación de las estructuras contables, auditorías y cargas fiscales de las organizaciones. Contará con la capacidad de expresar sistemas de información financiera veraces que optimicen los recursos económicos corporativos y agilicen la toma de decisiones directivas estratégicas. Su formación le habilitará para evaluar riesgos financieros, dictaminar estados financieros bajo normativas nacionales e internacionales, y aplicar marcos fiscales de forma rigurosa y ética para garantizar la transparencia legal corporativa.",
+            campo: "Despachos contables, financieros y de auditoría externa, empresas privadas de carácter nacional o global (en roles de contraloría, tesorería, impuestos o dirección de finanzas), instituciones bancarias, dependencias del sector hacendario y fiscal del gobierno, y consultorías contables independientes.",
+            bloquesPlan: [
+                { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Contabilidad Básica, Administración General, Derecho Civil.", "<strong>2° Cuatrimestre:</strong> Contabilidad Intermedia, Matemáticas Financieras, Derecho Mercantil.", "<strong>3° Cuatrimestre:</strong> Contabilidad Superior, Estadística Aplicada, Microeconomía."] },
+                { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Contabilidad de Costos I, Introducción a las Finanzas, Derecho Laboral.", "<strong>5° Cuatrimestre:</strong> Contabilidad de Costos II, Administración Financiera, Legislación Fiscal I.", "<strong>6° Cuatrimestre:</strong> Presupuestos, Auditoría Financiera I, Legislación Fiscal II."] },
+                { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Auditoría Financiera II, Finanzas Corporativas, Contribuciones Especiales.", "<strong>8° Cuatrimestre:</strong> Seminario de Estructura Fiscal, Análisis de Inversiones, Ética Profesional.", "<strong>9° Cuatrimestre:</strong> Seminario de Contaduría, Auditoría Fiscal, Proyectos de Emprendimiento."] }
+            ] 
+        },
+        idiomas: { 
+            titulo: "Idiomas", 
+            duracion: "9 Cuatrimestres", 
+            perfil: "El egresado de la Licenciatura en Idiomas alcanzará un dominio avanzado y técnico de lenguas extranjeras, dotado de habilidades de traducción e interpretación simultánea y consecutiva en diversos contextos socioculturales y económicos. Su formación integral le capacitará para aplicar metodologías pedagógicas innovadoras en la docencia de idiomas, gestionar la comunicación intercultural efectiva y adaptar contenidos escritos y audiovisuales respetando modismos regionales. Actuará bajo altos estándares éticos, promoviendo la diplomacia, el intercambio lingüístico y el entendimiento cultural en entornos globales e institucionales.",
+            campo: "Centros educativos públicos y privados de todos los niveles, agencias de traducción e interpretación internacional, empresas del sector turístico y hotelero global, departamentos de comercio exterior y relaciones públicas, delegaciones diplomáticas, embajadas y editoriales.",
+            bloquesPlan: [
+                { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Fonética y Fonología, Gramática Comunicativa I, Introducción a la Lingüística.", "<strong>2° Cuatrimestre:</strong> Morfosintaxis, Gramática Comunicativa II, Comprensión Lectora Avanzada.", "<strong>3° Cuatrimestre:</strong> Expresión Escrita, Introducción a la Traducción, Expresión Oral."] },
+                { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Traducción Escrita I, Cultura y Literatura Extranjera I, Didáctica General.", "<strong>5° Cuatrimestre:</strong> Traducción Escrita II, Cultura y Literatura Extranjera II, Métodos de Enseñanza.", "<strong>6° Cuatrimestre:</strong> Interpretación Consecutiva, Redacción Avanzada, Diseño de Material Educativo."] },
+                { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Traducción Especializada, Lingüística Aplicada, Evaluación Educativa.", "<strong>8° Cuatrimestre:</strong> Interpretación Simultánea, Ética Profesional del Traductor, Seminario de Titulación I.", "<strong>9° Cuatrimestre:</strong> Relaciones Internacionales, Prácticas Profesionales, Seminario de Titulación II."] }
+            ] 
+        },
+        informatica: { 
+            titulo: "Informática Administrativa", 
+            duracion: "9 Cuatrimestres", 
+            perfil: "El egresado de la Licenciatura en Informática Administrativa poseerá una sólida formación que unifica las ciencias computacionales y tecnologías de la información con la optimización de recursos y procesos corporativos. Estará capacitado para liderar la arquitectura, desarrollo e implementación de bases de datos robustas, redes seguras y sistemas de información empresarial alineados a objetivos gerenciales financieros. Su enfoque estratégico le permitirá auditar activos tecnológicos, evaluar proyectos de transformación digital y proponer soluciones informáticas eficientes y rentables con un sentido proactivo, responsable y visionario.",
+            campo: "Empresas del sector de tecnología o de cualquier industria (en áreas de soporte de sistemas, redes, desarrollo de software y gestión informática), consultorías en desarrollo de software de negocios, administración de infraestructuras en bases de datos y comercio electrónico, y proyectos independientes de innovación tecnológica.",
+            bloquesPlan: [
+                { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Fundamentos de Programación, Introducción a la Administración, Álgebra Lineal.", "<strong>2° Cuatrimestre:</strong> Programación Estructurada, Proceso Administrativo, Estructura de Datos.", "<strong>3° Cuatrimestre:</strong> Programación Orientada a Objetos, Contabilidad General, Arquitectura de Computadoras."] },
+                { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Sistemas de Información Organizacional, Contabilidad Administrativa, Redes de Computadoras I.", "<strong>5° Cuatrimestre:</strong> Administración de Bases de Datos, Análisis y Diseño de Sistemas, Redes II.", "<strong>6° Cuatrimestre:</strong> Desarrollo Web, Administración de Operaciones, Sistemas Operativos."] },
+                { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Comercio Electrónico, Seguridad Informática, Auditoría de Sistemas.", "<strong>8° Cuatrimestre:</strong> Gestión de Proyectos Tecnológicos, Inteligencia de Negocios, Ética Profesional.", "<strong>9° Cuatrimestre:</strong> Desarrollo de Emprendedores, Seminario de Sistemas, Prácticas Directivas."] }
+            ] 
+        },
+        pedagogia: { 
+            titulo: "Pedagogía", 
+            duracion: "9 Cuatrimestres", 
+            perfil: "El egresado de la Licenciatura en Pedagogía será un profesional altamente especializado en el análisis de teorías educativas, diseño curricular, docencia estratégica y evaluación del aprendizaje institucional. Tendrá las competencias conceptuales para diagnosticar necesidades académicas, coordinar y capacitar capital humano dentro de organizaciones y escuelas, y liderar proyectos psicopedagógicos para la educación especial. Su preparación le dotará de habilidades de investigación que fomenten ambientes de inclusión y un liderazgo proactivo dedicado a elevar la calidad educativa, integrando tecnologías actuales.",
+            campo: "Instituciones educativas públicas o de carácter privado (desde niveles básicos hasta universitarios), centros de capacitación laboral e industrial para recursos humanos de empresas, despachos independientes especializados en asesoría pedagógica y orientación académica, y organizaciones enfocadas en el diseño curricular de planes educativos.",
+            bloquesPlan: [
+                { t: "Primeros Cuatrimestres (1° a 3°)", mat: ["<strong>1° Cuatrimestre:</strong> Teorías del Aprendizaje, Introducción a la Pedagogía, Historia de la Educación.", "<strong>2° Cuatrimestre:</strong> Didáctica General, Psicología Educativa I, Filosofía de la Educación.", "<strong>3° Cuatrimestre:</strong> Didáctica Especial, Psicología Educativa II, Sociología de la Educación."] },
+                { t: "Cuatrimestres Intermedios (4° a 6°)", mat: ["<strong>4° Cuatrimestre:</strong> Diseño Curricular I, Evaluación Educativa, Orientación Educativa.", "<strong>5° Cuatrimestre:</strong> Diseño Curricular II, Formación de Instructores, Organización Escolar.", "<strong>6° Cuatrimestre:</strong> Nuevas Tecnologías en la Educación, Pedagogía Diferencial, Investigación Educativa I."] },
+                { t: "Cuatrimestres Finales (7° a 9°)", mat: ["<strong>7° Cuatrimestre:</strong> Educación Especial, Administración Educativa, Investigación Educativa II.", "<strong>8° Cuatrimestre:</strong> Capacitación y Desarrollo de Personal, Ética Pedagógica, Seminario de Titulación I.", "<strong>9° Cuatrimestre:</strong> Consultoría Pedagógica, Prácticas Profesionales, Seminario de Titulación II."] }
+            ] 
+        }
+        };
+
+        function seleccionarCarrera(key) {
+            carreraActual = baseDatos[key];
+            paginaActual = 1;
+            totalPaginas = 1 + (carreraActual.bloquesPlan ? carreraActual.bloquesPlan.length : 0);
+
+            document.querySelectorAll('.carrera-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(`btn-${key}`).classList.add('active');
+
+            renderizarPagina();
+        }
+
+        function cambiarPagina(direccion) {
+            paginaActual += direccion;
+            renderizarPagina();
+        }
+
+        function renderizarPagina() {
+            if(!carreraActual) return;
+
+            const area = document.getElementById('bookRenderArea');
+            bookWindow.scrollTop = 0; 
+
+            if (paginaActual === 1) {
+                area.innerHTML = `
+                    <h2>${carreraActual.titulo}</h2>
+                    <p class="duration-badge">Duración: ${carreraActual.duracion}</p>
+                    <h3>Perfil del Egresado</h3>
+                    <p class="profile-text">${carreraActual.perfil}</p>
+                    <h3>Campo Laboral</h3>
+                    <p class="field-text">${carreraActual.campo}</p>
+                `;
+            } else {
+                const indexBloque = paginaActual - 2;
+                const bloque = carreraActual.bloquesPlan[indexBloque];
+
+                let htmlMaterias = `
+                    <h2>Plan de Estudios</h2>
+                    <div class="cuatrimestre-block">
+                        <div class="cuatrimestre-title">${bloque.t}</div>
+                        <ul class="subjects-list">
+                            ${bloque.mat.map(m => `<li>${m}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                area.innerHTML = htmlMaterias;
+            }
+
+            document.getElementById('pageIndicator').innerText = `Pág. ${paginaActual} / ${totalPaginas}`;
+            document.getElementById('prevBtn').disabled = (paginaActual === 1);
+            document.getElementById('nextBtn').disabled = (paginaActual === totalPaginas);
+        }
+        let slideIndex = 0;
+
+        function moverCarrusel(direccion) {
+            const track = document.getElementById('carouselTrack');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const totalSlides = slides.length;
+
+            if (totalSlides === 0 || !track) return;
+
+            slideIndex += direccion;
+
+            if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            } else if (slideIndex < 0) {
+                slideIndex = totalSlides - 1;
+            }
+
+            track.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        function toggleFooter() {
+            const footer = document.getElementById('mainFooter');
+            const arrow = document.getElementById('footerArrowIcon');
+            
+            if (!footer) return;
+
+            footer.classList.toggle('open');
+
+            if (footer.classList.contains('open')) {
+                if (arrow) arrow.innerText = '▼';
+            } else {
+                if (arrow) arrow.innerText = '▲';
+            }
+        }
+    </script>
+    <!-- NUEVA ESTRUCTURA DEL FOOTER COLAPSABLE -->
+    <footer class="main-footer" id="mainFooter">
+        <!-- Pestaña con la flecha para abrir/cerrar -->
+        <div class="footer-toggle-btn" onclick="toggleFooter()">
+            <span id="footerArrowIcon">▲</span> ¡Mira la galería!
+        </div>
+
+        <div class="footer-carousel-container">
+            <h3 class="carousel-title">¡Miralos! ¿No te animas? （＾∀＾●）ﾉｼ</h3>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-arrow prev" onclick="moverCarrusel(-1)">&#10094;</button>
+                <div class="carousel-window">
+                    <div class="carousel-track" id="carouselTrack">
+                        
+                        <div class="carousel-slide">
+                            <img src="images/cam.jpeg" alt="Estudiantes de Marketing" onerror="this.src=''">
+                            <div class="slide-caption">(ˉ﹃ˉ)</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/camot.jpeg" alt="Prácticas Forenses" onerror="this.src='https://via.placeholder.com/600x250/ff7f50/ffffff?text=Prácticas+de+Laboratorio'">
+                            <div class="slide-caption">༼ つ ◕_◕ ༽つ</div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="images/camotes.jpeg" alt="Desarrollo de Sistemas" onerror="this.src='https://via.placeholder.com/600x250/2d1454/ffffff?text=Centro+de+Cómputo'">
+                            <div class="slide-caption">(¬‿¬)</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/cucu.jpeg" alt="Prácticas Clínicas" onerror="this.src='https://via.placeholder.com/600x250/ffcc00/000000?text=Comunidad+Universitaria'">
+                            <div class="slide-caption">(づ￣ 3￣)づ</div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <button class="carousel-arrow next" onclick="moverCarrusel(1)">&#10095;</button>
+            </div>
+            
+            <p class="footer-copyright">&copy; 2026 Centro Universitario Valle de Anáhuac. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
